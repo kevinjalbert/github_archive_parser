@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class TeamAddEvent < EventHandler
-    def parse(event)
-    end
+  module TeamAddEvent
+    include EventHandler
   end
 end

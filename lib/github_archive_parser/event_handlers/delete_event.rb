@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class DeleteEvent < EventHandler
-    def parse(event)
-    end
+  module DeleteEvent
+    include EventHandler
   end
 end

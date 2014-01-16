@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class PullRequestReviewCommentEvent < EventHandler
-    def parse(event)
-    end
+  module PullRequestReviewCommentEvent
+    include EventHandler
   end
 end

@@ -10,6 +10,8 @@ module GitHubArchiveParser
       )
       parse_options
       determine_log_level
+
+      # Create the concrete handlers and store them for future use
       create_event_handlers
     end
 
@@ -21,8 +23,13 @@ module GitHubArchiveParser
 
         Yajl::Parser.parse(js) do |event|
           event_class = class_from_string("GitHubArchiveParser::#{event['type']}")
-          handler = @event_handlers[event_class]
-          handler.parse(event) unless handler.nil?
+          event_handler = @event_handlers[event_class]
+
+          event_handler.each { |handler|
+            if !handler.nil? && handler.respond_to?(:parse)
+              handler.parse(event)
+            end
+          }
         end
       else
         Log.warn "URL[#{url}] does not belong to http://data.githubarchive.org/"
@@ -67,9 +74,22 @@ module GitHubArchiveParser
 
     def create_event_handlers
       @event_handlers = {}
-      EventHandler.descendants.each do | handler_class|
-        handler = handler_class.new
-        @event_handlers[handler_class] = handler
+
+      # Probably can do something to not hardcode this
+      # Iterate over the event types
+      [CommitCommentEvent, CreateEvent, DeleteEvent,
+      DeploymentEvent, DeploymentStatusEvent, DownloadEvent,
+      FollowEvent, ForkApplyEvent, ForkEvent,
+      GistEvent, GollumEvent, IssueCommentEvent,
+      IssueCommentEvent, IssuesEvent, MemberEvent,
+      PublicEvent, PullRequestEvent, PullRequestReviewCommentEvent,
+      PushEvent, ReleaseEvent, StatusEvent,
+      TeamAddEvent, WatchEvent].each do | event_type |
+
+        # Map list of concrete event handler to their event type
+        @event_handlers[event_type] = event_type.descendants.map { |handler|
+          handler.new
+        }
       end
     end
   end

@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class CommitCommentEvent < EventHandler
-    def parse(event)
-    end
+  module CommitCommentEvent
+    include EventHandler
   end
 end

@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class ForkApplyEvent < EventHandler
-    def parse(event)
-    end
+  module ForkApplyEvent
+    include EventHandler
   end
 end

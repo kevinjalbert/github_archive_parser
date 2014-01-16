@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class CreateEvent < EventHandler
-    def parse(event)
-    end
+  module CreateEvent
+    include EventHandler
   end
 end

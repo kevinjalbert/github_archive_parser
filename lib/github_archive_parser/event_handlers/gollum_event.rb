@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class GollumEvent < EventHandler
-    def parse(event)
-    end
+  module GollumEvent
+    include EventHandler
   end
 end

@@ -1,6 +1,5 @@
 module GitHubArchiveParser
-  class PullRequestEvent < EventHandler
-    def parse(event)
-    end
+  module PullRequestEvent
+    include EventHandler
   end
 end

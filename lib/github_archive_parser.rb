@@ -22,7 +22,8 @@ module GitHubArchiveParser
         js = Zlib::GzipReader.new(gz).read
 
         Yajl::Parser.parse(js) do |event|
-          event_class = class_from_string("GitHubArchiveParser::#{event['type']}")
+          event = Hashie::Mash.new(event)
+          event_class = class_from_string("GitHubArchiveParser::#{event.type}")
           event_handler = @event_handlers[event_class]
 
           event_handler.each { |handler|

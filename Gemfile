@@ -19,3 +19,4 @@ end
 
 gem 'rake'
 gem 'yajl-ruby'
+gem 'hashie'

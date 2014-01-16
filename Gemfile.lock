@@ -38,6 +38,7 @@ GEM
     guard-rspec (4.2.4)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    hashie (2.0.5)
     listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -91,6 +92,7 @@ DEPENDENCIES
   coveralls
   github_archive_parser!
   guard-rspec
+  hashie
   pry-debugger
   pry-stack_explorer
   rake

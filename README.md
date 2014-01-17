@@ -1,4 +1,9 @@
 # GitHub Archive Parser
+[![Gem Version](https://badge.fury.io/rb/github_archive_parser.png)](http://badge.fury.io/rb/github_archive_parser)
+[![Build Status](https://travis-ci.org/kevinjalbert/github_archive_parser.png?branch=master)](https://travis-ci.org/kevinjalbert/github_archive_parser)
+[![Coverage Status](https://coveralls.io/repos/kevinjalbert/github_archive_parser/badge.png)](https://coveralls.io/r/kevinjalbert/github_archive_parser)
+[![Code Climate](https://codeclimate.com/github/kevinjalbert/github_archive_parser.png)](https://codeclimate.com/github/kevinjalbert/github_archive_parser)
+[![Dependency Status](https://gemnasium.com/kevinjalbert/github_archive_parser.png)](https://gemnasium.com/kevinjalbert/github_archive_parser)
 
 ## Introduction
 This gem provides a streamlined method for parsing the [GitHub Archive](http://www.githubarchive.org/). You have the ability to define custom event handlers for the different [22 GitHub Event Types](http://developer.github.com/v3/activity/events/types/). A custom event handler allows you to parse individual events as they are processed by the GitHub Archive Parser.

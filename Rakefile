@@ -12,10 +12,13 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 desc "Run GitHub Archive Parser on specified url (for debugging)"
-task :run, :url do |t, args|
+task :debug_process_url, :url do |t, args|
   Bundler.require(:debug)
   require 'github_archive_parser'
-  GitHubArchiveParser::Processor.new.process(args[:url])
+
+  processor = GitHubArchiveParser::Processor.new
+  processor.options.debug = true
+  processor.process(args)
 end
 
 task :default => :spec

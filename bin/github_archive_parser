@@ -3,7 +3,5 @@
 $:.unshift File.expand_path("../../lib", __FILE__)
 require 'github_archive_parser'
 
-github_archive_parser = GitHubArchiveParser::Processor.new
-ARGV.each do |url|
-  github_archive_parser.process(url)
-end
+github_archive_parser = GitHubArchiveParser::CLI.new
+github_archive_parser.process(ARGV)

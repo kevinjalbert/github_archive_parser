@@ -29,7 +29,7 @@ GEM
     docile (1.1.2)
     ffi (1.9.3)
     formatador (0.2.4)
-    guard (2.2.5)
+    guard (2.3.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
       lumberjack (~> 1.0)

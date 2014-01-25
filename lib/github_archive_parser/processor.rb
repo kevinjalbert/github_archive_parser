@@ -5,22 +5,7 @@ module GitHubArchiveParser
       create_event_handlers
     end
 
-    def create_event_handlers
-      @event_handlers = {}
 
-      # Probably can do something to not hardcode this
-      # Iterate over the event types
-      [CommitCommentEvent, CreateEvent, DeleteEvent,
-      DeploymentEvent, DeploymentStatusEvent, DownloadEvent,
-      FollowEvent, ForkApplyEvent, ForkEvent,
-      GistEvent, GollumEvent, IssueCommentEvent,
-      IssueCommentEvent, IssuesEvent, MemberEvent,
-      PublicEvent, PullRequestEvent, PullRequestReviewCommentEvent,
-      PushEvent, ReleaseEvent, StatusEvent,
-      TeamAddEvent, WatchEvent].each do | event_type |
-
-        # Map list of concrete event handler to their event type
-        @event_handlers[event_type] = event_type.descendants.map { |handler| handler.new }
       end
     end
 
@@ -52,6 +37,25 @@ module GitHubArchiveParser
     end
 
     private
+
+    def create_event_handlers
+      @event_handlers = {}
+
+      # Probably can do something to not hardcode this
+      # Iterate over the event types
+      [CommitCommentEvent, CreateEvent, DeleteEvent,
+      DeploymentEvent, DeploymentStatusEvent, DownloadEvent,
+      FollowEvent, ForkApplyEvent, ForkEvent,
+      GistEvent, GollumEvent, IssueCommentEvent,
+      IssueCommentEvent, IssuesEvent, MemberEvent,
+      PublicEvent, PullRequestEvent, PullRequestReviewCommentEvent,
+      PushEvent, ReleaseEvent, StatusEvent,
+      TeamAddEvent, WatchEvent].each do | event_type |
+
+        # Map list of concrete event handler to their event type
+        @event_handlers[event_type] = event_type.descendants.map { |handler| handler.new }
+      end
+    end
 
     def class_from_string(string)
       begin

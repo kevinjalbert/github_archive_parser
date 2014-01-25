@@ -21,4 +21,27 @@ task :debug_process_url, :url do |t, args|
   processor.process(args)
 end
 
+desc "Run GitHub Archive Parser since a specified time (for debugging)"
+task :debug_process_since, :since do |t, args|
+  Bundler.require(:debug)
+  require 'github_archive_parser'
+
+  processor = GitHubArchiveParser::Processor.new
+  processor.options.debug = true
+  processor.options.since = args[:since]
+  processor.process(args)
+end
+
+desc "Run GitHub Archive Parser between two times (for debugging)"
+task :debug_process_between, :since, :until do |t, args|
+  Bundler.require(:debug)
+  require 'github_archive_parser'
+
+  processor = GitHubArchiveParser::Processor.new
+  processor.options.debug = true
+  processor.options.since = args[:since]
+  processor.options.since = args[:until]
+  processor.process(args)
+end
+
 task :default => :spec

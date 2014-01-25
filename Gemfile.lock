@@ -10,6 +10,7 @@ GEM
       debug_inspector (>= 0.0.1)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    chronic (0.10.2)
     coderay (1.1.0)
     columnize (0.3.6)
     coveralls (0.7.0)
@@ -89,6 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  chronic
   coveralls
   github_archive_parser!
   guard-rspec

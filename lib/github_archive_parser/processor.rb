@@ -5,8 +5,22 @@ module GitHubArchiveParser
       create_event_handlers
     end
 
+    def process_between(since_time, until_time)
+      start_time = Chronic.parse(since_time)
+      end_time = Chronic.parse(until_time)
 
+      if start_time.nil?
+        raise "Invalid since time: #{since_time}"
       end
+      if end_time.nil?
+        raise "Invalid until time: #{until_time}"
+      end
+
+      Log.info "Processing between #{start_time} and #{end_time}"
+    end
+
+    def process_since(since_time)
+      process_between(since_time, 'Now')
     end
 
     def process_url(url)

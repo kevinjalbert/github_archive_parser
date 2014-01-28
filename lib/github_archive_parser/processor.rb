@@ -6,8 +6,8 @@ module GitHubArchiveParser
     end
 
     def process_between(since_time, until_time)
-      start_time = Chronic.parse(since_time)
-      end_time = Chronic.parse(until_time)
+      start_time = Chronic.parse(since_time).getutc
+      end_time = Chronic.parse(until_time).getutc
 
       Log.info "Processing between #{start_time} and #{end_time}"
       if start_time.nil?

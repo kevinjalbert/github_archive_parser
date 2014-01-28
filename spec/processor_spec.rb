@@ -44,20 +44,19 @@ describe Processor do
     end
 
     it "should call process_url(url) for as many hour intervals between two times (months)" do
-      since_time = 'October 1 2012'
-      until_time = 'December 1 2012'
+      since_time = 'April 1 2012 at 12pm'
+      until_time = 'June 1 2012 at 12pm'
 
-      # 24 hours * (October 31 days + November 30 days) = 1464 hours
-      processor.should receive(:process_url).exactly(1464).times
+      # (24 hours * (April 30 days + May 31 days)) - last hour = 1463 hours
+      processor.should receive(:process_url).exactly(1463).times
       processor.process_between(since_time, until_time)
     end
 
     it "should call process_url(url) for as many hour intervals between two times (years)" do
-      since_time = 'April 1 2011'
-      until_time = 'April 1 2013'
+      since_time = 'April 1 2011 at 12pm'
+      until_time = 'April 1 2013 at 12pm'
 
-      # Number of days between May 1 2011 and May 1 2013 = 731 days
-      # 731 days * 24 hours = 17544 hours (actually 17543 due to leap year and factions)
+      # ((Number of days between April 1 2011 and April 1 2013) * 24 hours) - last hour = 731 days * 24 hours = 17543 hours
       processor.should receive(:process_url).exactly(17543).times
       processor.process_between(since_time, until_time)
     end

@@ -16,9 +16,9 @@ task :debug_process_url, :url do |t, args|
   Bundler.require(:debug)
   require 'github_archive_parser'
 
-  processor = GitHubArchiveParser::Processor.new
-  processor.options.debug = true
-  processor.process(args)
+  github_archive_parser = GitHubArchiveParser::CLI.new
+  github_archive_parser.options.debug = true
+  github_archive_parser.process(args)
 end
 
 desc "Run GitHub Archive Parser since a specified time (for debugging)"
@@ -26,10 +26,10 @@ task :debug_process_since, :since do |t, args|
   Bundler.require(:debug)
   require 'github_archive_parser'
 
-  processor = GitHubArchiveParser::Processor.new
-  processor.options.debug = true
-  processor.options.since = args[:since]
-  processor.process(args)
+  github_archive_parser = GitHubArchiveParser::CLI.new
+  github_archive_parser.options.debug = true
+  github_archive_parser.options.since = args[:since]
+  github_archive_parser.process(args)
 end
 
 desc "Run GitHub Archive Parser between two times (for debugging)"
@@ -37,11 +37,11 @@ task :debug_process_between, :since, :until do |t, args|
   Bundler.require(:debug)
   require 'github_archive_parser'
 
-  processor = GitHubArchiveParser::Processor.new
-  processor.options.debug = true
-  processor.options.since = args[:since]
-  processor.options.since = args[:until]
-  processor.process(args)
+  github_archive_parser = GitHubArchiveParser::CLI.new
+  github_archive_parser.options.debug = true
+  github_archive_parser.options.since = args[:since]
+  github_archive_parser.options.until = args[:until]
+  github_archive_parser.process(args)
 end
 
 task :default => :spec

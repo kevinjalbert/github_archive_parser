@@ -2,7 +2,7 @@ require 'github_archive_parser/initialize'
 
 module GitHubArchiveParser
   class CLI
-    attr_reader :options
+    attr_accessor :options
 
     def initialize
       @options = OpenStruct.new(
@@ -18,7 +18,7 @@ module GitHubArchiveParser
     def process(args)
       processor = Processor.new
       begin
-        if !@options.until.nil?
+        if !@options.until.nil? && !@options.since.nil?
           processor.process_between(@options.since, @options.until)
         elsif !@options.since.nil?
           processor.process_since(@options.since)

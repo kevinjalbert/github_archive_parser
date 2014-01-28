@@ -9,6 +9,7 @@ module GitHubArchiveParser
       start_time = Chronic.parse(since_time)
       end_time = Chronic.parse(until_time)
 
+      Log.info "Processing between #{start_time} and #{end_time}"
       if start_time.nil?
         raise "Invalid since time: #{since_time}"
       end
@@ -16,7 +17,12 @@ module GitHubArchiveParser
         raise "Invalid until time: #{until_time}"
       end
 
-      Log.info "Processing between #{start_time} and #{end_time}"
+      # Start hourly iterator from start time, but exclude last hour (could be incomplete)
+      iterator = start_time
+      while iterator < end_time - 3600
+        process_url("http://data.githubarchive.org/#{iterator.year}-#{iterator.month.to_s.rjust(2, '0')}-#{iterator.day.to_s.rjust(2, '0')}-#{iterator.hour}.json.gz")
+        iterator += 3600
+      end
     end
 
     def process_since(since_time)
@@ -58,13 +64,13 @@ module GitHubArchiveParser
       # Probably can do something to not hardcode this
       # Iterate over the event types
       [CommitCommentEvent, CreateEvent, DeleteEvent,
-      DeploymentEvent, DeploymentStatusEvent, DownloadEvent,
-      FollowEvent, ForkApplyEvent, ForkEvent,
-      GistEvent, GollumEvent, IssueCommentEvent,
-      IssueCommentEvent, IssuesEvent, MemberEvent,
-      PublicEvent, PullRequestEvent, PullRequestReviewCommentEvent,
-      PushEvent, ReleaseEvent, StatusEvent,
-      TeamAddEvent, WatchEvent].each do | event_type |
+       DeploymentEvent, DeploymentStatusEvent, DownloadEvent,
+       FollowEvent, ForkApplyEvent, ForkEvent,
+       GistEvent, GollumEvent, IssueCommentEvent,
+       IssueCommentEvent, IssuesEvent, MemberEvent,
+       PublicEvent, PullRequestEvent, PullRequestReviewCommentEvent,
+       PushEvent, ReleaseEvent, StatusEvent,
+       TeamAddEvent, WatchEvent].each do | event_type |
 
         # Map list of concrete event handler to their event type
         @event_handlers[event_type] = event_type.descendants.map { |handler| handler.new }

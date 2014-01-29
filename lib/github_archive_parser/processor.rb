@@ -6,16 +6,9 @@ module GitHubArchiveParser
     end
 
     def process_between(since_time, until_time)
-      start_time = Chronic.parse(since_time).getutc
-      end_time = Chronic.parse(until_time).getutc
-
+      start_time = time_from_natural_language(since_time)
+      end_time = time_from_natural_language(until_time)
       Log.info "Processing between #{start_time} and #{end_time}"
-      if start_time.nil?
-        raise "Invalid since time: #{since_time}"
-      end
-      if end_time.nil?
-        raise "Invalid until time: #{until_time}"
-      end
 
       # Start hourly iterator from start time, but exclude last hour (could be incomplete)
       iterator = start_time
@@ -86,6 +79,12 @@ module GitHubArchiveParser
         Log.warn "Event #{string} not found"
         nil
       end
+    end
+
+    def time_from_natural_language(natural_language)
+      time = Chronic.parse(natural_language)
+      raise "Invalid time: #{natural_language}" if time.nil?
+      time.getutc
     end
 
   end

@@ -1,4 +1,5 @@
 # GitHub Archive Parser
+[![Gitter Chat](http://img.shields.io/chat/gitter.png?color=brightgreen)](https://gitter.im/kevinjalbert/github_archive_parser)
 [![Gem Version](https://badge.fury.io/rb/github_archive_parser.png)](http://badge.fury.io/rb/github_archive_parser)
 [![Build Status](https://travis-ci.org/kevinjalbert/github_archive_parser.png?branch=master)](https://travis-ci.org/kevinjalbert/github_archive_parser)
 [![Coverage Status](https://coveralls.io/repos/kevinjalbert/github_archive_parser/badge.png)](https://coveralls.io/r/kevinjalbert/github_archive_parser)

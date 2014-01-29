@@ -6,8 +6,8 @@ module GitHubArchiveParser
     end
 
     def process_between(since_time, until_time)
-      start_time = time_from_natural_language(since_time)
-      end_time = time_from_natural_language(until_time)
+      start_time = Utilities.time_from_natural_language(since_time)
+      end_time = Utilities.time_from_natural_language(until_time)
       Log.info "Processing between #{start_time} and #{end_time}"
 
       # Start hourly iterator from start time, but exclude last hour (could be incomplete)
@@ -35,7 +35,7 @@ module GitHubArchiveParser
 
         Yajl::Parser.parse(js) do |event|
           event = Hashie::Mash.new(event)
-          event_class = class_from_string("GitHubArchiveParser::#{event.type}")
+          event_class = Utilities.class_from_string("GitHubArchiveParser::#{event.type}")
           event_handler = @event_handlers[event_class]
 
           event_handler.each { |handler|
@@ -68,23 +68,6 @@ module GitHubArchiveParser
         # Map list of concrete event handler to their event type
         @event_handlers[event_type] = event_type.descendants.map { |handler| handler.new }
       end
-    end
-
-    def class_from_string(string)
-      begin
-        string.split('::').inject(Object) do |mod, class_name|
-          mod.const_get(class_name)
-        end
-      rescue Exception
-        Log.warn "Event #{string} not found"
-        nil
-      end
-    end
-
-    def time_from_natural_language(natural_language)
-      time = Chronic.parse(natural_language)
-      raise "Invalid time: #{natural_language}" if time.nil?
-      time.getutc
     end
 
   end

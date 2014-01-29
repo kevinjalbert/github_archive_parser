@@ -20,10 +20,10 @@ describe Utilities do
 
     it "should return the correct time" do
       time = Utilities.time_from_natural_language('August 1 2013 at 4am')
-      time.year.should eq(2013)
-      time.month.should eq(8)
-      time.day.should eq(1)
-      time.hour.should eq(8)  # +4 hours due to UTC
+      time.getlocal.year.should eq(2013)
+      time.getlocal.month.should eq(8)
+      time.getlocal.day.should eq(1)
+      time.getlocal.hour.should eq(4)
     end
   end
 

@@ -22,8 +22,9 @@ You want to print the name of newly created repositories. The first thing you ne
       end
     end
 
-When you have your custom event handlers setup you can simply start processing any [GitHub Archive](http://www.githubarchive.org/) url using `GitHubArchiveParser::Processor`. Currently you can only process the one hour blocks on an individual basis, however eventually you will be able to specify ranges.
+When you have your custom event handlers setup you can simply start processing [GitHub Archive](http://www.githubarchive.org/) using `GitHubArchiveParser::Processor`. Currently you can process one hour blocks on an individual basis, or by specifing ranges.
 
     processor = GitHubArchiveParser::Processor.new
-    processor.process("http://data.githubarchive.org/2012-04-11-15.json.gz")
-    processor.process("http://data.githubarchive.org/2012-04-11-16.json.gz")
+    processor.process_url("http://data.githubarchive.org/2012-04-11-15.json.gz")
+    processor.process_since("One Month Ago")
+    processor.process_between("One Week Ago", "Yesterday")
